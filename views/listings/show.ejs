@@ -1,28 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show </title>
-</head>
-<body>
-    <h2>Listing details : </h2>
-    <ul>
-        <li><%= listing.title %></li>
-        <li><%= listing.description %></li>
-        <li> <img src="<%= listing.image %>" alt="" width="150px"></li>
-        <li>₹<%= listing.price %></li>
-        <li><%= listing.location %></li>
-        <li><%= listing.country %></li>
-        
-    </ul>
+<% layout('layouts/boilerplate.ejs') %>
+<body class="bg-light">
+  <div class="container mt-5">
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white">
+        <h2 class="mb-0">Listing Details</h2>
+      </div>
+      <div class="card-body">
+        <ul class="list-group list-group-flush mb-3">
+          <li class="list-group-item"><strong>Title:</strong> <%= listing.title %></li>
+          <li class="list-group-item"><strong>Description:</strong> <%= listing.description %></li>
+          <li class="list-group-item">
+            <img src="<%= listing.image %>" alt="Listing Image" class="img-thumbnail" width="200" />
+          </li>
+          <li class="list-group-item"><strong>Price:</strong> ₹<%= listing.price %></li>
+          <li class="list-group-item"><strong>Location:</strong> <%= listing.location %></li>
+          <li class="list-group-item"><strong>Country:</strong> <%= listing.country %></li>
+        </ul>
 
-    <form action="/listings/<%= listing._id %>/edit" method="get">
-        <button>Edit</button>
-    </form>
-    <form action="/listings/<%= listing._id %>/delete" method="get">
-        <button>Delete</button>
-    </form>
-    
+        <div class="d-flex justify-content-between">
+          <form action="/listings/<%= listing._id %>/edit" method="get">
+            <button class="btn btn-warning">Edit</button>
+          </form>
+          <form action="/listings/<%= listing._id %>/delete" method="get">
+            <button class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
 </body>
-</html>

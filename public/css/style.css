@@ -1,0 +1,31 @@
+.navbar {
+  height: 6rem;
+  width: screen;
+  background: white;
+}
+.container-fluid {
+  display: flex;
+  justify-content: space-around;
+}
+.fa-compass {
+  color: rgb(247, 65, 65);
+}
+.nav-link {
+  color: black !important;
+}
+
+.card {
+  width: 20rem;
+  margin: 1rem;
+  border: none !important;
+  background: rgb(201, 197, 197) !important;
+  padding-top: 0.5rem;
+}
+.card-img-top {
+  width: 270px !important;
+  overflow: hidden;
+  height: 170px;
+}
+.card-price {
+  font-weight: 600;
+}

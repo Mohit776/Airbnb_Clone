@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const initData = require("./data");
 const Listing = require("../models/listing.js");
 
-const MONGO_URL = "mongodb://localhost:27017/airbnb_2"; // keep naming consistent
+const MONGO_URL = "mongodb://localhost:27017/Airbnb"; // keep naming consistent
 
 // Function to connect to MongoDB
 async function main() {
