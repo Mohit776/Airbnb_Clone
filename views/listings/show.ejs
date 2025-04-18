@@ -21,8 +21,8 @@
           <form action="/listings/<%= listing._id %>/edit" method="get">
             <button class="btn btn-warning">Edit</button>
           </form>
-          <form action="/listings/<%= listing._id %>/delete" method="get">
-            <button class="btn btn-danger">Delete</button>
+          <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST" style="display: inline;">
+            <button type="submit" class="btn btn-danger">Delete</button>
           </form>
         </div>
       </div>
