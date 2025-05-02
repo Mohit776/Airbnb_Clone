@@ -1,33 +1,87 @@
 <% layout('layouts/boilerplate.ejs') %>
-<body class="bg-light">
-  <div class="container mt-5">
-    <div class="card shadow">
-      <div class="card-header bg-primary text-white">
-        <h2 class="mb-0">Listing Details</h2>
-      </div>
-      <div class="card-body">
-        <ul class="list-group list-group-flush mb-3">
-          <li class="list-group-item"><strong>Title:</strong> <%= listing.title %></li>
-          <li class="list-group-item"><strong>Description:</strong> <%= listing.description %></li>
-          <li class="list-group-item">
-            <img src="<%= listing.image %>" alt="Listing Image" class="img-thumbnail" width="200" />
-          </li>
-          <li class="list-group-item"><strong>Price:</strong> ₹<%= listing.price %></li>
-          <li class="list-group-item"><strong>Location:</strong> <%= listing.location %></li>
-          <li class="list-group-item"><strong>Country:</strong> <%= listing.country %></li>
-        </ul>
+<body class="">
+  <div class="">
+    <div class="">
+      <h2 class="">Listing Details</h2>
+      <hr />
+    </div>
+    <div class="">
+      <ul class="">
+        <li class="">
+          <img
+            src="<%= listing.image %>"
+            alt="Listing Image"
+            class="img-thumbnail"
+            width="200"
+          />
+        </li>
+        <li class=""><strong>Title:</strong> <%= listing.title %></li>
+        <li class="">
+          <strong>Description:</strong> <%= listing.description %>
+        </li>
+        <li class="">
+          <strong>Price:</strong> ₹<%= listing.price %>/Per Night
+        </li>
+        <li class=""><strong>Location:</strong> <%= listing.location %></li>
+        <li class=""><strong>Country:</strong> <%= listing.country %></li>
+      </ul>
 
-        <div class="d-flex justify-content-between">
-          <form action="/listings/<%= listing._id %>/edit" method="get">
-            <button class="btn btn-warning">Edit</button>
-          </form>
-          <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST" style="display: inline;">
-            <button type="submit" class="btn btn-danger">Delete</button>
-          </form>
-        </div>
+      <!-- button -->
+
+      <div class="d-flex justify-content-between">
+        <form action="/listings/<%= listing._id %>/edit" method="get">
+          <button class="btn btn-warning">Edit</button>
+        </form>
+        <form
+          action="/listings/<%= listing._id %>?_method=DELETE"
+          method="POST"
+          style="display: inline"
+        >
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
       </div>
     </div>
-  </div>
+    <hr />
+    <!-- Add Reviews -->
+    <div class="mb-3 mt-3">
+      <h4>Leave a Review</h4>
+      <div>
+        <form action="/listings/<%= listing._id %>/reviews" method="POST" class="needs-validation" novalidate>
+          <div>
+            <label for="rating" class="form-label">Rating : </label>
+            <input class="" type="range" name="review[rating]" min="1" max="5" />
+          </div>
 
- 
+          <div class="mb-3 mt-3">
+            <label for="comment" class="form-label">Add a Comments</label>
+            <textarea class="form-control" name="review[comment]" cols="30" rows="5" required></textarea>
+            <div class="invalid-feedback">Please Add a Review</div>
+          </div>
+          <button type="submit" class="btn btn-outline-dark">Summit</button>
+        </form>
+      </div>
+      <hr />
+      <!-- show review -->
+      <div>
+        <h4><b> All Review </b></h4>
+        <div class="row">
+        
+
+        <% for( let review of listing.reviews) { %>
+          <div class="card card-review col-6" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">@UserName</h5>
+              <p class="card-text"><%=review.comment%></p>
+              <h6 class="card-subtitle mb-2 text-body-secondary">Rating : <%=review.rating %>⭐</h6>
+
+            </div>
+          </div>
+
+        <% } %>
+      </div>
+      
+      </div>
+    </div>
+    <hr />
+  </div>
 </body>

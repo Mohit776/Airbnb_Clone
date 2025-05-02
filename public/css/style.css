@@ -19,7 +19,14 @@
   width: 20rem;
   margin: 1rem;
   border: none !important;
-  background: rgb(201, 197, 197) !important;
+  background: rgb(192, 151, 151) !important;
+  padding-top: 0.5rem;
+}
+.card-review {
+  width: 20rem;
+  margin: 1rem;
+  border: none !important;
+  background: antiquewhite !important;
   padding-top: 0.5rem;
 }
 .card-img-top {
