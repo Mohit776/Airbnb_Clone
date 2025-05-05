@@ -1,11 +1,11 @@
-
 .navbar {
-  height: 6rem;
-  width: screen;
-  background: white;
+  height: auto; /* Adjust height for smaller screens */
+  padding: 1rem;
+  background-color: white;
 }
 .container-fluid {
   display: flex;
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
   justify-content: space-around;
 }
 .fa-compass {
@@ -15,25 +15,47 @@
   color: black !important;
 }
 
+/* Card Styles */
 .card {
-  width: 20rem;
-  margin: 1rem;
+  width: 100%; /* Adjust width for responsiveness */
+  max-width: 20rem; /* Set a consistent maximum width */
+  height: 25rem; /* Set a consistent height for all cards */
+  margin: 1rem auto;
   border: none !important;
   background: rgb(192, 151, 151) !important;
   padding-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ensure content is spaced evenly */
 }
+
+/* Review Card Styles */
 .card-review {
-  width: 20rem;
-  margin: 1rem;
+  width: 100%; /* Adjust width for responsiveness */
+  max-width: 20rem; /* Set a consistent maximum width */
+  height: 25rem; /* Set a consistent height for all review cards */
+  margin: 1rem auto;
   border: none !important;
   background: antiquewhite !important;
   padding-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ensure content is spaced evenly */
 }
+
+/* Card Image */
 .card-img-top {
-  width: 270px !important;
+  width: 100%; /* Make images responsive */
+  max-width: 270px;
+  height: 12rem; /* Set a fixed height for images */
+  object-fit: cover; /* Ensure images fill the space without distortion */
   overflow: hidden;
-  height: 170px;
+  margin: 0 auto; /* Center the image horizontally */
+  display: block; /* Ensure the image behaves like a block element */
 }
+
+/* Card Price */
 .card-price {
   font-weight: 600;
+  margin-top: auto; /* Push price to the bottom of the card */
 }

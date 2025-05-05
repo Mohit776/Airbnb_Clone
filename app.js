@@ -7,6 +7,8 @@ const path = require("path");
 const ejsMate = require("ejs-mate");
 const methodOverride = require("method-override");
 const dotenv = require("dotenv");
+const session = require("express-session");
+const flash = require("connect-flash");
 
 // =======================
 // Load Environment Variables
@@ -37,6 +39,29 @@ app.engine("ejs", ejsMate);
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "/public")));
+
+// =======================
+// Cookies
+// =======================
+const sessionOptions = {
+  secret: "mykey",
+  resave: false,
+  saveUninitialized: true,
+  cookies: {
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
+};
+
+app.use(session(sessionOptions));
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+ 
+  next();
+});
 
 // =======================
 // Routes
