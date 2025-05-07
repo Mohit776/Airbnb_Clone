@@ -6,6 +6,7 @@ const ExpressError = require("../utils/ExpressError.js"); // Corrected path
 const Listing = require("../models/listing.js"); // Import Listing model
 const Review = require("../models/review.js"); // Renamed to follow convention
 const { reviewSchema } = require("../schema.js"); // Corrected path
+const { isLoggedin } = require("../middleware.js");
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -25,7 +26,7 @@ const validateReview = (req, res, next) => {
 
 router.post(
   "/",
-  validateReview,
+  validateReview,isLoggedin,
   WrapAsync(async (req, res) => {
     const listing = await Listing.findById(req.params.id);
     if (!listing) {
@@ -44,10 +45,11 @@ router.post(
 );
 
 router.delete(
-  "/:reviewId",
+  "/:reviewId",isLoggedin,
   WrapAsync(async (req, res) => {
     const { id ,reviewId} = req.params;
-    await Review.findByIdAndDelete(id);
+    await Listing.findByIdAndUpdate(id);
+    await Review.findByIdAndDelete(reviewId)
     req.flash("success", "Listing Deleted Successfully")
     res.redirect(`/listings/${req.params.id}`);
    

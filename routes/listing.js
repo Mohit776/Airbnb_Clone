@@ -4,6 +4,7 @@ const WrapAsync = require("../utils/WrapAsync.js"); // Corrected path
 const ExpressError = require("../utils/ExpressError.js"); // Corrected path
 const Listing = require("../models/listing.js"); // Added import for Listing model
 const { listingSchema, reviewSchema } = require("../schema.js"); // Corrected path
+const { isLoggedin } = require("../middleware.js");
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
@@ -27,7 +28,8 @@ router.get(
 );
 
 // Route to display the form for creating a new listing
-router.get("/new", (req, res) => {
+router.get("/new",isLoggedin, (req, res) => {
+  
   res.render("listings/new.ejs");
 });
 
@@ -60,7 +62,7 @@ router.post(
 
 // Route to edit a listing
 router.get(
-  "/:id/edit",
+  "/:id/edit",isLoggedin,
   WrapAsync(async (req, res) => {
     const { id } = req.params;
     const listing = await Listing.findById(id);
@@ -87,7 +89,7 @@ router.put(
 // Use DELETE method for deleting listings
 
 router.delete(
-  "/:id",
+  "/:id",isLoggedin,
   WrapAsync(async (req, res) => {
     const { id } = req.params;
     await Listing.findByIdAndDelete(id);

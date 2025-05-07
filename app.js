@@ -9,6 +9,9 @@ const methodOverride = require("method-override");
 const dotenv = require("dotenv");
 const session = require("express-session");
 const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user.js");
 
 // =======================
 // Load Environment Variables
@@ -18,8 +21,9 @@ dotenv.config();
 // =======================
 // Import Routes
 // =======================
-const listings = require("./routes/listing.js");
-const reviews = require("./routes/review.js");
+const listingsRouter = require("./routes/listing.js");
+const reviewsRouter = require("./routes/review.js");
+const userRouter = require("./routes/user.js");
 
 // =======================
 // Initialize Express App
@@ -41,7 +45,7 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "/public")));
 
 // =======================
-// Cookies
+// Cookies and Passport setup
 // =======================
 const sessionOptions = {
   secret: "mykey",
@@ -55,23 +59,45 @@ const sessionOptions = {
 };
 
 app.use(session(sessionOptions));
+
+// Passport
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// Flash setup
 app.use(flash());
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
- 
+  res.locals.currUser = req.user;
+
   next();
 });
 
 // =======================
 // Routes
 // =======================
-app.use("/listings", listings);
-app.use("/listings/:id/reviews", reviews);
+app.use("/listings", listingsRouter);
+app.use("/listings/:id/reviews", reviewsRouter);
+app.use("/", userRouter);
 
 // Home Route - Basic Test Endpoint
 app.get("/", (req, res) => {
   res.send("Hello World!");
+});
+
+// For Testing
+app.get("/demo", async (req, res) => {
+  let fake = new User({
+    email: "mohit123@gmail.com",
+    username: "Mohit4",
+    
+  });
+  let re =  User.register(fake,"hello");
+  res.send(re);
 });
 
 // =======================
